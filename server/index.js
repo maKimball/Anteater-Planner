@@ -51,6 +51,23 @@ app.post("/createAssignment", async (req, res) => {
     res.json(assignment)
 })
 
+app.get("/getUsers", (req, res) => {
+    userModel.find({}, (error, result) => {
+        try {
+            res.json(result)
+        } catch (error) {
+            res.json(error)
+        }
+    })
+})
+app.post("/createUser", async (req, res) => {
+    const user = req.body
+    const newUser = new userModel(user)
+    await newUser.save()
+    res.json(user)
+
+})
+
 app.listen(3001, () => {
     console.log('Server runs wowowow!')
 })
